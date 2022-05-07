@@ -6,7 +6,12 @@
 
 #include <string>
 #include <mbedtls/base64.h>
-#include <hwcrypto/sha.h>
+/* see https://github.com/fhessel/esp32_https_server/issues/143#issuecomment-1119985066 */
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL (4, 4, 0)
+  #include <sha/sha_parallel_engine.h>
+#else
+  #include <hwcrypto/sha.h>
+#endif
 #include <functional>
 
 // Required for sockets
